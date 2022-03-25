@@ -1,106 +1,252 @@
-import { View, Text,TouchableOpacity,StyleSheet,Image,SafeAreaView,Button} from 'react-native';
-import React,{useState} from 'react'
-import hat from '../../data/hat'
-import coat from '../../data/coat'
-import shoes from '../../data/shoes'
-import back from '../../data/backimg';
-const Miniroom = () => {
-  const [hatimageVar, sethatImageVar] = useState(0);
-  const [coatimageVar, setcoatImageVar] = useState(0);
-  const [shoesimageVar, setshoesImageVar] = useState(0); 
-  const [backimageVar, setbackImageVar] = useState(0); 
-  const changehat=()=> {
-    hatimageVar == (hat.length - 1) ? sethatImageVar(0) : sethatImageVar(hatimageVar + 1);
-    console.log(hat[hatimageVar].image);
-  }
-  const changecoat=()=> {
-    coatimageVar == (coat.length - 1) ? setcoatImageVar(0) : setcoatImageVar(coatimageVar + 1);
-    console.log(coat[coatimageVar].image);
-  }
-  const changeshoes=()=> {
-    shoesimageVar == (shoes.length - 1) ? setshoesImageVar(0) : setshoesImageVar(shoesimageVar + 1);
-    console.log(shoes[shoesimageVar].image);
-  }
-  const changeback=()=> {
-    backimageVar == (back.length - 1) ? setbackImageVar(0) : setbackImageVar(backimageVar + 1);
-    console.log(back[backimageVar].image);
-  }
-  return (
-    <View style={styles.container}>
-        <Text style={{fontSize:30}}>미니룸</Text>    
-          <View style={styles.miniroom2}>
-            <View style={{borderWidth:1,borderColor:'blue',flex:1}} resizeMode="stretch" >
-              <Image style={{width:'100%',height:230}}source={back[backimageVar].imageUrl}/>  
-            </View>
-            <View style={styles.dress}>
-              <Image style={{height: 100, width: 100,borderWidth:1,borderColor:'red',flex:1}} resizeMode="stretch" source={hat[hatimageVar].imageUrl}/>
-              <Image style={{height: 100, width: 100,borderWidth:1,borderColor:'red',flex:1}} resizeMode="stretch" source={coat[coatimageVar].imageUrl}/>
-              <Image style={{height: 100, width: 100,borderWidth:1,borderColor:'red',flex:1}} resizeMode="stretch" source={shoes[shoesimageVar].imageUrl}/>
-            </View>
-          </View>
-        
-        
-        <View style={styles.miniroom} >
-            <Text>보유한 아이템</Text>
-            <View style={{flexDirection:'row'}}>
-            <TouchableOpacity onPress={changehat}>
-              <Image style={{height: 70, width: 70,borderWidth:1,borderColor:'red',}} resizeMode="contain" source={hat[0].imageUrl} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={changecoat}>
-              <Image style={{height: 70, width: 70,borderWidth:1,borderColor:'red',}} resizeMode="contain" source={coat[0].imageUrl} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={changeshoes}>
-              <Image style={{height: 70, width: 70,borderWidth:1,borderColor:'red',}} resizeMode="contain" source={shoes[0].imageUrl} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={changeback}>
-              <Image style={{height: 70, width: 70,borderWidth:1,borderColor:'red',}} resizeMode="contain" source={back[0].imageUrl} />
-            </TouchableOpacity>
-            </View>
-        </View>
-    </View>
-  );
-};
+import * as React from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { DraxProvider, DraxView, DraxList } from 'react-native-drax';
 
-export default Miniroom;
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column', // 혹은 'column'
-      backgroundColor: '#fff',
-      padding: 20,
-      borderWidth: 1,
-      borderColor: 'blue',
-      alignItems: 'center',
+const gestureRootViewStyle = { flex: 1 };
+
+export default function App() {
+  const draggableItemList = [
+    {
+      "id": 1,
+      "name": "A",
+      "background_color": "red"
     },
-    title:{
-      flexDirection: 'row', // 혹은 'column'
-      flex: 1,
+    {
+      "id": 2,
+      "name": "B",
+      "background_color": "pink"
     },
-    miniroom: {
-      width:'100%', 
-      height:230,
-      justifyContent: 'space-around',
-      alignItems:'center',
-      marginTop: 30,
-      //paddingVertical: 8,
-      //paddingHorizontal: 12,
-      borderWidth: 1,
-      borderColor: 'green',
+    {
+      "id": 3,
+      "name": "C",
+      "background_color": "orange"
+
     },
-    miniroom2: {
-      width:'100%', 
-      height:230,
-      //justifyContent: 'space-around',
-      marginTop: 30,
-      //paddingVertical: 8,
-      //paddingHorizontal: 12,
-      borderWidth: 1,
-      borderColor: 'orange',
+    {
+      "id": 4,
+      "name": "D",
+      "background_color": "#aaaaff"
     },
-    dress:{
-      width:'100%',
-      height:'100%',
-      alignItems:'center',
-      justifyContent:'center'
+    {
+      "id": 5,
+      "name": "E",
+      "background_color": "blue"
+    },
+    {
+      "id": 6,
+      "name": "F",
+      "background_color": "green"
+    },
+    {
+      "id": 7,
+      "name": "G",
+      "background_color": "brown"
+
+    },
+    {
+      "id": 8,
+      "name": "H",
+      "background_color": "#aaaaff"
+    },
+    {
+      "id": 9,
+      "name": "I",
+      "background_color": "red"
+    },
+    {
+      "id": 10,
+      "name": "J",
+      "background_color": "pink"
+    },
+    {
+      "id": 11,
+      "name": "K",
+      "background_color": "orange"
+
+    },
+    {
+      "id": 12,
+      "name": "L",
+      "background_color": "#aaaaff"
     }
-  });
+
+  ];
+  const FirstReceivingItemList = [
+    {
+      "id": 13,
+      "name": "M",
+      "background_color": '#ffaaff'
+    },
+    {
+      "id": 14,
+      "name": "N",
+      "background_color": '#ffaaff'
+    },
+    {
+      "id": 15,
+      "name": "O",
+      "background_color": '#ffaaff'
+    },
+    {
+      "id": 16,
+      "name": "P",
+      "background_color": '#ffaaff'
+    }
+  ];
+
+  const [receivingItemList, setReceivedItemList] = React.useState(FirstReceivingItemList);
+  const [dragItemMiddleList, setDragItemListMiddle] = React.useState(draggableItemList);
+
+  const DragUIComponent = ({ item, index }) => {
+    return (
+      <DraxView
+        style={[styles.centeredContent, styles.draggableBox, { backgroundColor: item.background_color }]}
+        draggingStyle={styles.dragging}
+        dragReleasedStyle={styles.dragging}
+        hoverDraggingStyle={styles.hoverDragging}
+        dragPayload={index}
+        longPressDelay={150}
+        key={index}
+      >
+        <Text style={styles.textStyle}>{item.name}</Text>
+      </DraxView>
+    );
+  }
+
+  const ReceivingZoneUIComponent = ({ item, index }) => {
+    return (
+      <DraxView
+        style={[styles.centeredContent, styles.receivingZone, { backgroundColor: item.background_color }]}
+        receivingStyle={styles.receiving}
+        renderContent={({ viewState }) => {
+          const receivingDrag = viewState && viewState.receivingDrag;
+          const payload = receivingDrag && receivingDrag.payload;
+          return (
+            <View>
+              <Text style={styles.textStyle}>{item.name}</Text>
+            </View>
+          );
+        }}
+        key={index}
+        onReceiveDragDrop={(event) => {
+          let selected_item = dragItemMiddleList[event.dragged.payload];
+          console.log('onReceiveDragDrop::index', selected_item, index);
+          console.log('onReceiveDragDrop :: payload', event.dragged.payload);
+          let newReceivingItemList = [...receivingItemList];
+          console.log('onReceiveDragDrop :: newReceivingItemList', newReceivingItemList);
+          newReceivingItemList[index] = selected_item;
+          setReceivedItemList(newReceivingItemList);
+
+          let newDragItemMiddleList = [...dragItemMiddleList];
+          console.log('onReceiveDragDrop :: newDragItemMiddleList 1', newDragItemMiddleList);
+          newDragItemMiddleList[event.dragged.payload] = receivingItemList[index];
+          console.log('onReceiveDragDrop :: newDragItemMiddleList 2', newDragItemMiddleList);
+          setDragItemListMiddle(newDragItemMiddleList);
+        }}
+      />
+    );
+  }
+
+  const FlatListItemSeparator = () => {
+    return (<View style={styles.itemSeparator} />);
+  }
+
+  return (
+    <GestureHandlerRootView
+      style={gestureRootViewStyle}>
+      <View style={styles.title}>
+        <Text style={styles.titleText}>{'미니룸'}</Text>
+      </View>
+      <DraxProvider>
+        <View style={styles.container}>
+          <View style={styles.receivingContainer}>
+            {receivingItemList.map((item, index) => ReceivingZoneUIComponent({ item, index }))}
+          </View>
+          <View style={styles.draxListContainer}>
+            <DraxList
+              data={dragItemMiddleList}
+              renderItemContent={DragUIComponent}
+              keyExtractor={(item, index) => index.toString()}
+              numColumns={4}
+              ItemSeparatorComponent={FlatListItemSeparator}
+              scrollEnabled={true}
+            />
+          </View>
+        </View>
+      </DraxProvider>
+    </GestureHandlerRootView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 12,
+    paddingTop: 40,
+    justifyContent: 'space-evenly',
+  },
+  centeredContent: {
+    borderRadius: 10,
+  },
+  receivingZone: {
+    height: (Dimensions.get('window').width / 4) - 12,
+    borderRadius: 10,
+    width: (Dimensions.get('window').width / 4) - 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 5
+  },
+  receiving: {
+    borderColor: 'red',
+    borderWidth: 2,
+  },
+  draggableBox: {
+    width: (Dimensions.get('window').width / 4) - 12,
+    height: (Dimensions.get('window').width / 4) - 12,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 5
+  },
+  dragging: {
+    opacity: 0.2,
+  },
+  hoverDragging: {
+    borderColor: 'magenta',
+    borderWidth: 2,
+  },
+  receivingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  itemSeparator: {//아래 리스트 안 사각형 간격
+    height: 12
+  },
+  draxListContainer: {
+    padding: 5,
+    height: 250
+  },
+  receivingZoneContainer: {
+    padding: 5,
+    height: 300,
+
+  },
+  textStyle: {
+    fontSize: 18
+  },
+  title:{ 
+    height:50,
+    backgroundColor: 'orange',
+    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: "center",
+  },
+  titleText:{
+    color:'white',
+    marginTop:10,
+    height:40,
+    fontSize:20,
+    textAlign:'center'
+    },
+});
