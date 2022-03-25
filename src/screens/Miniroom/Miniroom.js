@@ -112,7 +112,7 @@ export default function App() {
         <Text style={styles.textStyle}>{item.name}</Text>
       </DraxView>
     );
-  }
+  } 
 
   const ReceivingZoneUIComponent = ({ item, index }) => {
     return (
